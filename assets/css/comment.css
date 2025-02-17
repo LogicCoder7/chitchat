@@ -1,0 +1,155 @@
+#commentSection {
+    background-color: lightgray;
+    position: fixed;
+    bottom: 0;
+    height: 70dvh;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    z-index: 200;
+    overflow: visible;
+    visibility: hidden;
+
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+#commentContainer {
+    padding: 10px;
+    overflow: auto;
+    scroll-padding-top: 5px;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.comment {
+    background-color: darkgray;
+    padding: 5px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.comment:target {
+    animation: dramaQueen 1s;
+}
+
+.comment-reference,
+.comment-reference:hover,
+.comment-reference:active {
+    color: black;
+    text-decoration: none;
+}
+
+.comment-reference {
+    background-color: gray;
+    padding: 5px;
+    margin-left: 25px;
+    border-radius: 5px;
+    display: block;
+}
+
+.comment-reference:hover {
+    background-color: rgb(100, 100, 100);
+}
+
+.comment-action input {
+    margin: 0;
+}
+
+.author {
+    font-style: italic;
+    font-size: 0.85em;
+}
+
+.date {
+    color: grey;
+    font-size: 0.85em;
+}
+
+#closeCommentBtn {
+    position: absolute;
+    top: -27px;
+    right: 0;
+    margin: 0;
+}
+
+.comment-input-container {
+    padding: 10px;
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.3);
+}
+
+#replyToContainer {
+    display: none;
+    column-gap: 5px;
+}
+
+#cancelReplyBtn {
+    margin: 0;
+    padding: 0;
+    height: 16px;
+    width: 16px;
+}
+
+#commentForm {
+    height: 40px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 5px;
+    align-items: end;
+}
+
+#commentForm input[type=submit] {
+    margin: 0;
+    height: 26px;
+}
+
+@media screen and (min-width: 1440px) {
+    #commentSection {
+        left: 300px;
+        right: 300px;
+    }
+}
+
+@media screen and (min-width: 720px) and (max-width: 1439px) {
+    #commentSection {
+        left: 200px;
+        right: 200px;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 719px) {
+    #commentSection {
+        left: 100px;
+        right: 100px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 499px) {
+    #commentSection {
+        left: 30px;
+        right: 30px;
+    }
+}
+
+@keyframes dramaQueen {
+
+    25% {
+        background-color: gray;
+    }
+
+    50% {
+        background-color: lightgray;
+    }
+
+    75% {
+        background-color: gray;
+    }
+
+    100% {
+        background-color: lightgray;
+    }
+}

@@ -1,0 +1,10 @@
+uploads/messages/*
+!uploads/messages/.gitkeep
+
+uploads/posts/*
+!uploads/posts/.gitkeep
+
+uploads/profile_pics/*
+!uploads/profile_pics/.gitkeep
+
+.htaccess

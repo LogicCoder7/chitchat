@@ -1,0 +1,155 @@
+body {
+	scroll-padding-top: 50px;
+}
+
+#headerContainer {
+	background-color: #eee;
+	position: sticky;
+	top: 0;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+}
+
+#messageContainer {
+	min-height: 100%;
+	padding: 10px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+#inputContainer {
+	background-color: #eee;
+	padding: 10px;
+	position: sticky;
+	bottom: 0;
+	box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+}
+
+.message {
+	background-color: lightgrey;
+	padding: 10px;
+	border-radius: 10px;
+	min-height: 100px;
+
+	display: grid;
+	grid-template-rows: 1fr;
+	row-gap: 5px;
+}
+
+.message:target {
+	animation: dramaQueen 1s;
+}
+
+.message-reference,
+.message-reference:hover,
+.message-reference:active {
+	color: black;
+	text-decoration: none;
+}
+
+.message-reference {
+	background-color: rgb(165, 165, 165);
+	padding: 5px;
+	margin-left: 25px;
+	border-radius: 5px;
+	display: block;
+}
+
+.message-reference:hover {
+	background-color: gray;
+}
+
+.message-content img,
+.message-content video {
+	max-width: 300px;
+	max-height: 300px;
+	height: auto;
+}
+
+.message-action input {
+	margin: 0;
+}
+
+.author {
+	font-style: italic;
+	font-size: 0.85em;
+}
+
+.date {
+	color: grey;
+	font-size: 0.85em;
+}
+
+#replyToSection {
+	display: none;
+	column-gap: 5px;
+}
+
+form {
+	height: 50px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	column-gap: 10px;
+}
+
+form input[type=submit] {
+	margin: 0;
+}
+
+#cancelReplyBtn {
+	margin: 0;
+	padding: 0;
+	height: 16px;
+	width: 16px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 499px) {
+	#messageContainer {
+		row-gap: 10px;
+	}
+
+	.message {
+		width: 300px;
+	}
+}
+
+@media screen and (min-width: 500px) and (max-width: 719px) {
+	#messageContainer {
+		row-gap: 60px;
+	}
+
+	.message {
+		width: 400px;
+	}
+}
+
+@media screen and (min-width: 720px) {
+	#messageContainer {
+		row-gap: 60px;
+	}
+
+	.message {
+		width: 400px;
+	}
+}
+
+@keyframes dramaQueen {
+
+	25% {
+		background-color: gray;
+	}
+
+	50% {
+		background-color: lightgray;
+	}
+
+	75% {
+		background-color: gray;
+	}
+
+	100% {
+		background-color: lightgray;
+	}
+}

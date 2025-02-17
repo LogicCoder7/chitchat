@@ -1,0 +1,78 @@
+header {
+	background-color: #eee;
+	position: sticky;
+	top: 0;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+}
+
+#postContainer {
+	padding: 30px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 30px;
+}
+
+.post {
+	border-radius: 5px;
+	box-shadow:
+		2px 2px 3px rgba(60, 60, 60, 0.5),
+		-2px 0px 3px rgba(60, 60, 60, 0.5);
+
+	display: grid;
+	grid-template-rows: 1fr auto auto;
+}
+
+.post-content img,
+.post-content video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.post-content p {
+	color: black;
+	background-color: rgb(170, 183, 216);
+	padding: 15px;
+	height: 100%;
+}
+
+.post-info {
+	background-color: darkgrey;
+	padding: 5px 6px 0 6px;
+}
+
+.post-action {
+	background-color: darkgrey;
+}
+
+
+@media screen and (min-width: 841px) {
+	.post {
+		width: 500px;
+		max-height: 550px;
+	}
+}
+
+@media screen and (min-width: 720px) and (max-width: 840px) {
+	.post {
+		width: 450px;
+		max-height: 500px;
+	}
+}
+
+@media screen and (min-width: 500px) and (max-width: 719px) {
+	.post {
+		width: 400px;
+		max-height: 450px;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 499px) {
+	.post {
+		width: 300px;
+		max-height: 350px;
+	}
+}

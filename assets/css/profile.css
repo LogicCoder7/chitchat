@@ -1,0 +1,125 @@
+#headerContainer {
+	background-color: #eee;
+	padding: 0px 5px;
+	position: sticky;
+	top: 0;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+}
+
+#profileContainer {
+	height: 120px;
+	margin: 5px 0;
+
+	display: grid;
+	grid-template-columns: 120px auto;
+	column-gap: 5px;
+	justify-items: space-between;
+}
+
+#profileContainer .profile-picture-container {
+	background-color: darkgray;
+	height: 100%;
+	width: 100%;
+	grid-row: span 5;
+	border-radius: 5px;
+}
+
+#profileContainer .profile-picture {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+#profileContainer .name {
+	font-weight: bolder;
+}
+
+#profileContainer .username {
+	color: grey;
+	font-style: italic;
+}
+
+.chat-btn {
+	margin: 0;
+}
+
+#headerContainer .button-container {
+	padding: 5px 0;
+}
+
+#contentContainer {
+	padding: 30px 10px;
+
+	display: grid;
+	column-gap: 15px;
+	row-gap: 30px;
+}
+
+.post {
+	border-radius: 5px;
+	box-shadow:
+		2px 2px 3px rgba(60, 60, 60, 0.5),
+		-2px 0px 3px rgba(60, 60, 60, 0.5);
+
+	display: grid;
+	grid-template-rows: 1fr;
+}
+
+
+.post-info {
+	background-color: darkgrey;
+	padding: 5px 6px 0 6px;
+}
+
+.post-action {
+	background-color: darkgray;
+}
+
+.post-content img,
+.post-content video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.post-content p {
+	color: black;
+	background-color: rgb(170, 183, 216);
+	padding: 15px;
+	height: 100%;
+}
+
+
+@media screen and (min-width: 1440px) {
+	#contentContainer {
+		grid-template-columns: 400px 400px 400px;
+		grid-auto-rows: 350px;
+	}
+}
+
+@media screen and (min-width: 720px) and (max-width: 1439px) {
+	#contentContainer {
+		grid-template-columns: 350px 350px;
+		grid-auto-rows: 350px;
+	}
+}
+
+@media screen and (min-width: 500px) and (max-width: 719px) {
+	#contentContainer {
+		grid-template-columns: 400px;
+		justify-content: center;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 499px) {
+	#contentContainer {
+		grid-template-columns: 300px;
+		justify-content: center;
+	}
+
+	.post {
+		max-height: 350px;
+	}
+}
