@@ -20,11 +20,11 @@ $member = (isset($_GET['member']) ? sanitize($_GET['member']) : null);
 </head>
 
 <body>
-	<header id="headerContainer">
+	<header class="main-header">
 		<?php require_once 'includes/navigation_bar.php'; ?>
 	</header>
 
-	<main id="messageContainer"></main>
+	<main id="messageContainer" class="message-container"></main>
 
 	<script>
 		post("api/fetch_messages.php", "member=<?php echo $member ?>", "messageContainer")
@@ -34,21 +34,21 @@ $member = (isset($_GET['member']) ? sanitize($_GET['member']) : null);
 		}, 2000);
 	</script>
 
-	<section id="inputContainer">
-		<div id="replyToSection">
-			<button id='cancelReplyBtn'>x</button>
+	<section id="inputContainer" class="input-container">
+		<div id="replyToSection" class="reply-to-section">
+			<button id="cancelReplyBtn" class="cancel-reply-btn">x</button>
 		</div>
 
-		<div style='text-align: left'>
+		<div>
 			<button id="textInputBtn">Text</button>
 			<button id="fileInputBtn">Image/Video</button>
 		</div>
 
-		<form method="post" action="api/fetch_messages.php" enctype="multipart/form-data">
+		<form class="message-form" method="post" action="api/fetch_messages.php" enctype="multipart/form-data">
 			<textarea name="message"></textarea>
 			<input type="hidden" name="member" value="<?php echo $member ?>">
 			<input type="hidden" name="reply_to_id">
-			<button type="submit">Send</button>
+			<button type="submit" class="send-btn">Send</button>
 		</form>
 	</section>
 	<script src="assets/js/chat.js"></script>

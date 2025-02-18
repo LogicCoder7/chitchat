@@ -2,7 +2,7 @@ body {
 	scroll-padding-top: 50px;
 }
 
-#headerContainer {
+.main-header {
 	background-color: #eee;
 	position: sticky;
 	top: 0;
@@ -10,21 +10,12 @@ body {
 	z-index: 100;
 }
 
-#messageContainer {
+.message-container {
 	min-height: 100%;
 	padding: 10px;
 
 	display: flex;
 	flex-direction: column;
-}
-
-#inputContainer {
-	background-color: #eee;
-	padding: 10px;
-	position: sticky;
-	bottom: 0;
-	box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.4);
-	z-index: 100;
 }
 
 .message {
@@ -68,45 +59,50 @@ body {
 	height: auto;
 }
 
-.message-action input {
-	margin: 0;
-}
-
-.author {
+.message-info .author {
 	font-style: italic;
 	font-size: 0.85em;
 }
 
-.date {
+.message-info .date {
 	color: grey;
 	font-size: 0.85em;
 }
 
-#replyToSection {
+.input-container {
+	background-color: #eee;
+	padding: 10px;
+	position: sticky;
+	bottom: 0;
+	box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+}
+
+.reply-to-section {
 	display: none;
 	column-gap: 5px;
 }
 
-form {
-	height: 50px;
-	display: grid;
-	grid-template-columns: 1fr auto;
-	column-gap: 10px;
-}
-
-form input[type=submit] {
-	margin: 0;
-}
-
-#cancelReplyBtn {
+.cancel-reply-btn {
 	margin: 0;
 	padding: 0;
 	height: 16px;
 	width: 16px;
 }
 
+.message-form {
+	height: 50px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	column-gap: 10px;
+}
+
+.send-btn {
+	margin: 0;
+}
+
 @media screen and (min-width: 320px) and (max-width: 499px) {
-	#messageContainer {
+	.message-container {
 		row-gap: 10px;
 	}
 
@@ -116,7 +112,7 @@ form input[type=submit] {
 }
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-	#messageContainer {
+	.message-container {
 		row-gap: 60px;
 	}
 
@@ -126,7 +122,7 @@ form input[type=submit] {
 }
 
 @media screen and (min-width: 720px) {
-	#messageContainer {
+	.message-container {
 		row-gap: 60px;
 	}
 
