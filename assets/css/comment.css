@@ -1,4 +1,4 @@
-#commentSection {
+.comment-section {
     background-color: lightgray;
     position: fixed;
     bottom: 0;
@@ -13,7 +13,7 @@
     grid-template-rows: 1fr;
 }
 
-#commentContainer {
+.comment-container {
     padding: 10px;
     overflow: auto;
     scroll-padding-top: 5px;
@@ -55,21 +55,17 @@
     background-color: rgb(100, 100, 100);
 }
 
-.comment-action input {
-    margin: 0;
-}
-
-.author {
+.comment-info .author {
     font-style: italic;
     font-size: 0.85em;
 }
 
-.date {
+.comment-info .date {
     color: grey;
     font-size: 0.85em;
 }
 
-#closeCommentBtn {
+.close-comment-btn {
     position: absolute;
     top: -27px;
     right: 0;
@@ -81,19 +77,19 @@
     box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.3);
 }
 
-#replyToContainer {
+.reply-to-container {
     display: none;
     column-gap: 5px;
 }
 
-#cancelReplyBtn {
+.cancel-reply-btn {
     margin: 0;
     padding: 0;
     height: 16px;
     width: 16px;
 }
 
-#commentForm {
+.comment-form {
     height: 40px;
 
     display: grid;
@@ -102,34 +98,34 @@
     align-items: end;
 }
 
-#commentForm input[type=submit] {
+.comment-btn {
     margin: 0;
     height: 26px;
 }
 
 @media screen and (min-width: 1440px) {
-    #commentSection {
+    .comment-section {
         left: 300px;
         right: 300px;
     }
 }
 
 @media screen and (min-width: 720px) and (max-width: 1439px) {
-    #commentSection {
+    .comment-section {
         left: 200px;
         right: 200px;
     }
 }
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-    #commentSection {
+    .comment-section {
         left: 100px;
         right: 100px;
     }
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-    #commentSection {
+    .comment-section {
         left: 30px;
         right: 30px;
     }

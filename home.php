@@ -28,21 +28,21 @@ require_once 'includes/navigation_guard_user.php';
 		get("api/fetch_fyp.php", "postContainer");
 	</script>
 
-	<section id="commentSection">
-		<button id="closeCommentBtn">x</button>
+	<section id="commentSection" class="comment-section">
+		<button id="closeCommentBtn" class="close-comment-btn">x</button>
 
-		<div id="commentContainer"></div>
+		<div id="commentContainer" class="comment-container"></div>
 
-		<div class='comment-input-container'>
-			<div id="replyToContainer">
-				<button id='cancelReplyBtn'>x</button>
+		<div class="comment-input-container">
+			<div id="replyToContainer" class="reply-to-container">
+				<button id="cancelReplyBtn" class="cancel-reply-btn">x</button>
 			</div>
 
-			<form id="commentForm" method="post" action="api/fetch_post_comments.php">
+			<form id="commentForm" class="comment-form" method="post" action="api/fetch_post_comments.php">
 				<textarea name="comment" id="commentInput"></textarea>
 				<input type="hidden" name="post_id">
 				<input type="hidden" name="reply_to_id">
-				<input type="submit" value="Comment">
+				<button type="submit" class="comment-btn">Comment</button>
 			</form>
 		</div>
 	</section>
