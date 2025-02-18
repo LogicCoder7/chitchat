@@ -1,4 +1,4 @@
-#headerContainer {
+.main-header {
 	background-color: #eee;
 	text-align: center;
 	padding: 0px 5px;
@@ -7,7 +7,7 @@
 	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
-#memberContainer {
+.member-container {
 	padding: 10px;
 
 	display: flex;

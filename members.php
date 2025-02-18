@@ -16,14 +16,14 @@ require_once 'includes/navigation_guard_user.php';
 </head>
 
 <body>
-	<header id="headerContainer">
+	<header class="main-header">
 		<?php require_once 'includes/navigation_bar.php'; ?>
 		<button onclick="get('/chitchat/api/fetch_members.php?view=members', 'memberContainer')">Members</button> |
 		<button onclick="get('/chitchat/api/fetch_members.php?view=following', 'memberContainer')">Following</button> |
 		<button onclick="get('/chitchat/api/fetch_members.php?view=followers', 'memberContainer')">Followers</button>
 	</header>
 
-	<main id="memberContainer"></main>
+	<main id="memberContainer" class="member-container"></main>
 	<script>
 		get("/chitchat/api/fetch_members.php", "memberContainer");
 	</script>
