@@ -1,4 +1,4 @@
-header {
+.main-header {
     background-color: #eee;
     position: fixed;
     top: 0;
@@ -7,7 +7,7 @@ header {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
-main {
+.form-container {
     height: 100%;
     text-align: center;
 
@@ -15,7 +15,7 @@ main {
     place-content: center;
 }
 
-form {
+.post-form {
     background-color: rgb(193, 193, 193);
     text-align: center;
     border-radius: 5px;
@@ -25,8 +25,7 @@ form {
     grid-template-rows: 20px 40px 40px 100px 40px;
 }
 
-form button,
-form input[type=submit] {
+.post-form button {
     margin: 0;
 }
 
@@ -35,7 +34,7 @@ form input[type=submit] {
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-    form {
+    .post-form {
         width: 280px;
         padding: 20px 20px;
         row-gap: 5px;
@@ -45,7 +44,7 @@ form input[type=submit] {
 /* @media screen and (orientation: landscape) {} */
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-    form {
+    .post-form {
         width: 370px;
         padding: 40px 60px;
         row-gap: 5px;
@@ -53,7 +52,7 @@ form input[type=submit] {
 }
 
 @media screen and (min-width: 720px) {
-    form {
+    .post-form {
         width: 400px;
         padding: 30px 30px;
         row-gap: 5px;

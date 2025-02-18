@@ -43,13 +43,13 @@ if ($_FILES) {
 </head>
 
 <body>
-	<header>
+	<header class="main-header">
 		<?php require_once 'includes/navigation_bar.php'; ?>
 	</header>
 
-	<main>
+	<main class="form-container">
 		<h1>Post</h1>
-		<form method='post' action='post.php' enctype='multipart/form-data'>
+		<form class="post-form" method='post' action='post.php' enctype='multipart/form-data'>
 			<p class="error"><?php echo $errorMessage ?></p>
 			<button type="button" id="postImageBtn">Image/Video</button>
 			<button type="button" id="postTextBtn">Text</button>
