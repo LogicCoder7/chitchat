@@ -1,4 +1,4 @@
-<nav id="navigationBar">
+<nav class="user-navigation-bar">
     <a href='home.php'>Home</a> |
     <a href='profile.php'>My Profile</a> |
     <a href='members.php'>Members</a> |

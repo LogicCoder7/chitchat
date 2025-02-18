@@ -12,14 +12,12 @@ body {
 	scroll-behavior: smooth;
 }
 
-#navigationBar {
+.user-navigation-bar {
 	text-align: center;
 	padding: 10px;
 }
 
-button,
-input[type='button'],
-input[type='submit'] {
+button {
 	margin: 5px;
 	background-color: rgb(45, 45, 45);
 	color: white;
@@ -29,15 +27,11 @@ input[type='submit'] {
 	transition: 150ms background-color;
 }
 
-button:hover,
-input[type='button']:hover,
-input[type='submit']:hover {
+button:hover {
 	background-color: rgb(80, 80, 80);
 }
 
-button:active,
-input[type='button']:active,
-input[type='submit']:active {
+button:active {
 	background-color: rgb(45, 45, 45);
 }
 
