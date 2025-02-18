@@ -20,11 +20,11 @@ $member = (isset($_GET['member']) ? $_GET['member'] : $username);
 </head>
 
 <body>
-	<header id="headerContainer">
+	<header class="main-header">
 		<?php require_once 'includes/navigation_bar.php'; ?>
 		<hr>
 
-		<div id="profileContainer"></div>
+		<div id="profileContainer" class="profile-container"></div>
 		<script>
 			get("api/fetch_profile.php?member=<?php echo $member; ?>", "profileContainer");
 		</script>
@@ -35,7 +35,7 @@ $member = (isset($_GET['member']) ? $_GET['member'] : $username);
 		</div>
 	</header>
 
-	<main id="contentContainer"></main>
+	<main id="contentContainer" class="content-container"></main>
 	<script>
 		get("api/fetch_posts.php?member=<?php echo $member; ?>", "contentContainer");
 	</script>

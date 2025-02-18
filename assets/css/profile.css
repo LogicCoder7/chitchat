@@ -1,4 +1,4 @@
-#headerContainer {
+.main-header {
 	background-color: #eee;
 	padding: 0px 5px;
 	position: sticky;
@@ -7,7 +7,7 @@
 	z-index: 100;
 }
 
-#profileContainer {
+.profile-container {
 	height: 120px;
 	margin: 5px 0;
 
@@ -17,7 +17,7 @@
 	justify-items: space-between;
 }
 
-#profileContainer .profile-picture-container {
+.profile-container .profile-picture-container {
 	background-color: darkgray;
 	height: 100%;
 	width: 100%;
@@ -25,18 +25,18 @@
 	border-radius: 5px;
 }
 
-#profileContainer .profile-picture {
+.profile-container .profile-picture {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
 }
 
-#profileContainer .name {
+.profile-container .name {
 	font-weight: bolder;
 }
 
-#profileContainer .username {
+.profile-container .username {
 	color: grey;
 	font-style: italic;
 }
@@ -45,11 +45,11 @@
 	margin: 0;
 }
 
-#headerContainer .button-container {
+.main-header .button-container {
 	padding: 5px 0;
 }
 
-#contentContainer {
+.content-container {
 	padding: 30px 10px;
 
 	display: grid;
@@ -93,28 +93,28 @@
 
 
 @media screen and (min-width: 1440px) {
-	#contentContainer {
+	.content-container {
 		grid-template-columns: 400px 400px 400px;
 		grid-auto-rows: 350px;
 	}
 }
 
 @media screen and (min-width: 720px) and (max-width: 1439px) {
-	#contentContainer {
+	.content-container {
 		grid-template-columns: 350px 350px;
 		grid-auto-rows: 350px;
 	}
 }
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-	#contentContainer {
+	.content-container {
 		grid-template-columns: 400px;
 		justify-content: center;
 	}
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-	#contentContainer {
+	.content-container {
 		grid-template-columns: 300px;
 		justify-content: center;
 	}
