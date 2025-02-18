@@ -53,27 +53,27 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['form
 </head>
 
 <body>
-	<header>
+	<header class="main-header">
 		<h1>ChitChat</h1>
 	</header>
 
-	<main>
+	<main class="form-container">
 		<h2 id="formHeading"></h2>
-		<form method="post" action="index.php">
+		<form class="login-signup-form" method="post" action="index.php">
 			<p class="error"><?php echo $errorMessage['request'] ?></p>
 
 			<label for="username">Username</label>
-			<input type="text" id="username" name="username" value="<?php echo $username ?>" required autofocus>
+			<input type="text" name="username" id="username" class="username-field" value="<?php echo $username ?>" required autofocus>
 			<p class="error"><?php echo $errorMessage['username'] ?></p>
 
 			<label for="password">Password</label>
-			<input type="password" id="password" name="password" value="<?php echo $password ?>" required>
+			<input type="password" name="password" id="password" class="password-field" value="<?php echo $password ?>" required>
 			<p class="error"><?php echo $errorMessage['password'] ?></p>
 
 			<input type="hidden" name="form_type" value="<?php echo $formType ?>" required>
 
-			<input type="submit" name="submit" value="">
-			<button type="button" id="toggleFormBtn"></button>
+			<button type="submit" name="submit" class="submit-btn"></button>
+			<button type="button" id="toggleFormBtn" class="toggle-form-btn"></button>
 		</form>
 	</main>
 	<script src="assets/js/login_signup_form.js"></script>

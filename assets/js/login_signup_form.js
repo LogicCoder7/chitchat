@@ -13,12 +13,12 @@ function toggleFormType() {
 function updateForm() {
     if (form['form_type'].value == 1) {
         formHeading.textContent = "Login";
-        form['submit'].value = "Login";
+        form['submit'].textContent = "Login";
         toggleFormBtn.textContent = "Don't have an account?";
     }
     else {
         formHeading.textContent = "Signup";
-        form['submit'].value = "Signup";
+        form['submit'].textContent = "Signup";
         toggleFormBtn.textContent = "Already have an account?";
     }
 }

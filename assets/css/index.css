@@ -1,4 +1,4 @@
-header {
+.main-header {
     background-color: rgb(193, 193, 193);
     position: fixed;
     top: 0;
@@ -12,7 +12,7 @@ header {
     align-items: center;
 }
 
-main {
+.form-container {
     height: 100%;
 
     display: flex;
@@ -26,7 +26,7 @@ h2 {
     text-align: center;
 }
 
-form {
+.login-signup-form {
     background-color: rgb(193, 193, 193);
     border-radius: 25px;
 
@@ -35,23 +35,23 @@ form {
     grid-template-columns: auto 1fr;
 }
 
-form .error,
-form input[type="submit"],
-#toggleFormBtn {
+.error,
+.submit-btn,
+.toggle-form-btn {
     grid-column: 1 / span 2;
 }
 
-form .error {
+.error {
     color: red;
 }
 
-form input[type="text"],
-form input[type="password"] {
+.username-field,
+.password-field {
     min-width: 100px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-    form {
+    .login-signup-form {
         width: 310px;
         padding: 30px 30px;
         row-gap: 5px;
@@ -62,7 +62,7 @@ form input[type="password"] {
 /* @media screen and (orientation: landscape) {} */
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-    form {
+    .login-signup-form {
         width: 370px;
         padding: 60px 80px;
         row-gap: 5px;
@@ -71,7 +71,7 @@ form input[type="password"] {
 }
 
 @media screen and (min-width: 720px) {
-    form {
+    .login-signup-form {
         width: 400px;
         padding: 60px 80px;
         row-gap: 5px;
