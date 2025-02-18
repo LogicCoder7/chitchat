@@ -1,4 +1,4 @@
-header {
+.main-header {
     background-color: rgb(193, 193, 193);
     position: fixed;
     top: 0;
@@ -11,7 +11,7 @@ header {
     align-items: center;
 }
 
-main {
+.form-container {
     height: 100%;
 
     display: flex;
@@ -21,11 +21,11 @@ main {
     row-gap: 10px;
 }
 
-h2 {
+.form-heading {
     text-align: center;
 }
 
-form {
+.profile-setup-form {
     background-color: rgb(193, 193, 193);
     border-radius: 25px;
 
@@ -34,21 +34,21 @@ form {
     grid-template-columns: auto 1fr;
 }
 
-form .error,
-form input[type="submit"] {
+.error,
+.submit-btn {
     grid-column: 1 / span 2;
 }
 
-form .error {
+.error {
     color: red;
 }
 
-form input[type="text"] {
+.text-field {
     min-width: 100px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-    form {
+    .profile-setup-form {
         width: 310px;
         padding: 30px 30px;
         row-gap: 5px;
@@ -59,7 +59,7 @@ form input[type="text"] {
 /* @media screen and (orientation: landscape) {} */
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-    form {
+    .profile-setup-form {
         width: 370px;
         padding: 60px 80px;
         row-gap: 5px;
@@ -68,7 +68,7 @@ form input[type="text"] {
 }
 
 @media screen and (min-width: 720px) {
-    form {
+    .profile-setup-form {
         width: 400px;
         padding: 60px 80px;
         row-gap: 5px;

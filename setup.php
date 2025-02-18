@@ -41,29 +41,29 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 </head>
 
 <body>
-	<header>
+	<header class="main-header">
 		<h1>ChitChat</h1>
 	</header>
 
-	<main>
-		<h2>Profile Setup</h2>
-		<form method="post" action="setup.php">
+	<main class="form-container">
+		<h2 class="form-heading">Profile Setup</h2>
+		<form class="profile-setup-form" method="post" action="setup.php">
 			<label for="firstname">First name</label>
-			<input type="text" id="firstname" name="firstname" value="<?php echo $firstname ?>" required autofocus>
+			<input type="text" id="firstname" class="text-field" name="firstname" value="<?php echo $firstname ?>" required autofocus>
 			<p class="error"><?php echo $errorMessage['firstname'] ?></p>
 
 			<label for="lastname">Last name</label>
-			<input type="text" id="lastname" name="lastname" value="<?php echo $lastname ?>" required>
+			<input type="text" id="lastname" class="text-field" name="lastname" value="<?php echo $lastname ?>" required>
 			<p class="error"><?php echo $errorMessage['lastname'] ?></p>
 
 			<label for="bio">Bio</label>
-			<input type="text" id="bio" name="bio">
+			<input type="text" id="bio" class="text-field" name="bio">
 
 			<label for="dob">Birth date</label>
-			<input type="date" id="dob" name="dob" value="<?php echo $dob ?>" required>
+			<input type="date" id="dob" class="text-field" name="dob" value="<?php echo $dob ?>" required>
 			<p class="error"><?php echo $errorMessage['dob'] ?></p>
 
-			<input type="submit" value="Submit">
+			<button type="submit" class="submit-btn">Submit</button>
 		</form>
 	</main>
 </body>
