@@ -19,11 +19,11 @@ require_once 'includes/navigation_guard_user.php';
 </head>
 
 <body>
-	<header>
+	<header class="main-header">
 		<?php require 'includes/navigation_bar.php'; ?>
 	</header>
 
-	<main id="postContainer"></main>
+	<main id="postContainer" class="post-container"></main>
 	<script>
 		get("api/fetch_fyp.php", "postContainer");
 	</script>
@@ -49,7 +49,6 @@ require_once 'includes/navigation_guard_user.php';
 
 	<script src="assets/js/comment.js"></script>
 	<script src="assets/js/logout.js"></script>
-
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-header {
+.main-header {
 	background-color: #eee;
 	position: sticky;
 	top: 0;
@@ -6,7 +6,7 @@ header {
 	z-index: 100;
 }
 
-#postContainer {
+.post-container {
 	padding: 30px;
 
 	display: flex;
