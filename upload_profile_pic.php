@@ -36,14 +36,14 @@ if ($_FILES) {
 </head>
 
 <body>
-	<header>
+	<header class="main-header">
 		<?php require_once 'includes/navigation_bar.php'; ?>
 	</header>
 
-	<main id="content_container">
+	<main class="form-container">
 		<h1>Upload Profile Picture</h1>
 
-		<form method="post" action="upload_profile_pic.php" enctype="multipart/form-data">
+		<form class="profile-pic-form" method="post" action="upload_profile_pic.php" enctype="multipart/form-data">
 			<p class="error"><?php echo "$errorMessage"; ?></p>
 			<input type="file" name="file">
 			<button type="submit">Upload</button>
