@@ -1,4 +1,4 @@
-header {
+.main-header {
     background-color: #eee;
     text-align: center;
     position: sticky;
@@ -12,7 +12,7 @@ header {
     padding: 0 10px 10px 10px;
 }
 
-#reportContainer {
+.report-container {
     padding: 30px;
 
     display: flex;
@@ -50,11 +50,11 @@ header {
     padding: 5px 6px 0 6px;
 }
 
-.author {
+.post-info .author {
     font-style: italic;
 }
 
-.date {
+.post-info .date {
     font-size: 0.85em;
 }
 
@@ -63,7 +63,7 @@ header {
     padding: 5px 6px 0 6px;
 }
 
-.report-num {
+.report-info .report-num {
     font-weight: bold;
 }
 

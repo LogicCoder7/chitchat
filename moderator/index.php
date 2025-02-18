@@ -16,19 +16,18 @@ require_once '../includes/navigation_guard_moderator.php';
 </head>
 
 <body>
-    <header>
+    <header class="main-header">
         <h1>Reports</h1>
         <nav class='navigation-bar'>
             <a id='logoutBtn' href="../logout.php">Logout</a>
         </nav>
     </header>
 
-    <main id="reportContainer"></main>
+    <main id="reportContainer" class="report-container"></main>
     <script>
         get("../api/fetch_post_reports.php", "reportContainer");
     </script>
     <script src="../assets/js/logout.js"></script>
-
 </body>
 
 </html>
