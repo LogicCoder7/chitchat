@@ -2,9 +2,9 @@
 require_once 'includes/session_start.php';
 require_once 'includes/navigation_guard_user.php';
 
-$username = $_SESSION['username'];
+$userId = $_SESSION['user_id'];
 $errorMessage = array('firstname' => null, 'lastname' => null, 'dob' => null);
-$firstname = $lastname = $dob = null;
+$firstname = $lastname = $bio = $dob = null;
 
 if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 	require_once 'includes/functions.php';
@@ -13,16 +13,15 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 	$bio = sanitize($_POST['bio']);
 	$dob = sanitize($_POST['dob']);
 
+	require_once 'includes/validations.php';
 	$firstname = fix_name($firstname);
 	$lastname = fix_name($lastname);
-
-	require_once 'includes/validations.php';
 	$errorMessage['firstname'] = validate_name($firstname);
 	$errorMessage['lastname'] = validate_name($lastname);
 	$errorMessage['dob'] = validate_birthdate($dob);
 
 	if (!$errorMessage['firstname'] && !$errorMessage['lastname'] && !$errorMessage['dob']) {
-		setup_profile($username, $firstname, $lastname, $bio, $dob);
+		setup_profile($userId, $firstname, $lastname, $bio, $dob);
 		die(header("Location: profile.php"));
 	}
 }
@@ -57,7 +56,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 			<p class="error"><?php echo $errorMessage['lastname'] ?></p>
 
 			<label for="bio">Bio</label>
-			<input type="text" id="bio" class="text-field" name="bio">
+			<input type="text" id="bio" class="text-field" name="bio" value="<?php echo $bio ?>">
 
 			<label for="dob">Birth date</label>
 			<input type="date" id="dob" class="text-field" name="dob" value="<?php echo $dob ?>" required>

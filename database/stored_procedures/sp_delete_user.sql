@@ -1,0 +1,9 @@
+DROP PROCEDURE IF EXISTS sp_delete_user;
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_user (IN p_id INT UNSIGNED)
+BEGIN
+    DELETE FROM user WHERE id = p_id;
+END//
+
+DELIMITER ;

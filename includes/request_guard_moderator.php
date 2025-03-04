@@ -1,3 +1,3 @@
 <?php
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'moderator')
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'content moderator')
     die();

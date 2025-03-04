@@ -1,14 +1,14 @@
 <?php
 require_once '../includes/session_start.php';
 require '../includes/request_guard_user.php';
-$username = $_SESSION['username'];
+$userId = $_SESSION['user_id'];
 
-if (isset($_POST['member'])) {
+if (isset($_POST['member_id'])) {
 
 	require_once '../includes/functions.php';
 	$errorMessage = null;
-	$member = sanitize($_POST['member']);
-	$replyToId = (isset($_POST['reply_to_id']) ? sanitize($_POST['reply_to_id']) : null);
+	$memberId = sanitize($_POST['member_id']);
+	$replyToId = (isset($_POST['reply_to_id']) && !empty($_POST['reply_to_id']) ? sanitize($_POST['reply_to_id']) : null);
 
 	if ($_FILES) {
 		$imageTypes = array("jpg", "jpeg", "png", "gif");
@@ -21,22 +21,22 @@ if (isset($_POST['member'])) {
 			$fileType = (in_array($ext, $imageTypes) ? "image" : "video");
 			$fileDestination = "../uploads/messages/$fileName";
 			move_uploaded_file($_FILES['message']['tmp_name'], $fileDestination);
-			message($username, $member, $fileName, $fileType, $replyToId);
+			message($userId, $memberId, $replyToId, $fileName, $fileType);
 		} else $errorMessage = "Unsupported image/video type!";
 	} else if (isset($_POST['message'])) {
 		$message = sanitize($_POST['message']);
-		message($username, $member, $message, "text", $replyToId);
+		message($userId, $memberId, $replyToId, $message, "text");
 	} else if (isset($_POST['delete_id'])) {
 		$deleteId = sanitize($_POST['delete_id']);
-		delete_message($deleteId, $username);
+		delete_message($deleteId, $userId);
 	}
 
-	$messages = get_messages($username, $member);
+	$messages = get_messages($userId, $memberId);
 
 	foreach ($messages as $message) {
 		echo "<section id='$message[id]' class='message'>";
 
-		if ($message['reply_to']) represent_message($message['reply_to'], $username, $member);
+		if ($message['reply_to']) represent_message($message['reply_to']);
 
 		echo "<div class='message-content'>";
 		$messageUrl = "/chitchat/uploads/messages/$message[message]";
@@ -55,13 +55,13 @@ if (isset($_POST['member'])) {
 		echo "</div>";
 
 		echo  "<p class='message-info'>"
-			. "<span class='author'>$message[firstname] $message[lastname]</span> "
-			. "<span class='date'>" . date("d/M/y g:iA", strtotime($message['date'])) . "</span>"
+			. "<span class='author'>$message[first_name] $message[last_name]</span> "
+			. "<span class='date'>" . date("d/M/y g:iA", strtotime($message['date_messaged'])) . "</span>"
 			. "</p>";
 
 		echo  "<div class='message-action'>"
 			. "<button onclick='replyToMessage(\"$message[id]\")'>Reply</button>"
-			. ($username === $message['sender'] ? "<button onclick='post(\"/chitchat/api/fetch_messages.php\", \"member=$member&delete_id=$message[id]\", \"messageContainer\")'>Delete</button>" : "")
+			. ($userId == $message['author'] ? "<button onclick='post(\"/chitchat/api/fetch_messages.php\", \"member_id=$memberId&delete_id=$message[id]\", \"messageContainer\")'>Delete</button>" : "")
 			. "</div>";
 
 		echo "</section>";
@@ -69,9 +69,9 @@ if (isset($_POST['member'])) {
 }
 
 
-function represent_message($messageId, $username, $member)
+function represent_message($messageId)
 {
-	$message = get_message($messageId, $username, $member);
+	$message = get_message($messageId);
 	if (!$message) return;
 	echo "<a class='message-reference' href='#$message[id]' >";
 
@@ -91,7 +91,7 @@ function represent_message($messageId, $username, $member)
 	echo "</div>";
 
 	echo "<div class='message-info'><p>"
-		. "<span class='author'>$message[firstname] $message[lastname]</span>"
+		. "<span class='author'>$message[first_name] $message[last_name]</span>"
 		. "</p></div>";
 
 	echo "</a>";

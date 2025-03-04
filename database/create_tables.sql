@@ -1,0 +1,23 @@
+DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS post_comment;
+DROP TABLE IF EXISTS post_like;
+DROP TABLE IF EXISTS post_report;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS profile_pic_like;
+DROP TABLE IF EXISTS profile_pic_comment;
+DROP TABLE IF EXISTS profile_pic;
+DROP TABLE IF EXISTS profile;
+DROP TABLE IF EXISTS user;
+
+source database/tables/user.sql;
+source database/tables/profile.sql;
+source database/tables/profile_pic.sql;
+source database/tables/profile_pic_like.sql;
+source database/tables/profile_pic_comment.sql;
+source database/tables/post.sql;
+source database/tables/post_report.sql;
+source database/tables/post_like.sql;
+source database/tables/post_comment.sql;
+source database/tables/message.sql;
+source database/tables/follow.sql;

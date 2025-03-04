@@ -2,7 +2,7 @@
 session_start();
 require_once 'includes/navigation_guard_user.php';
 
-$username = $_SESSION['username'];
+$userId = $_SESSION['user_id'];
 $errorMessage = null;
 
 if ($_FILES) {
@@ -17,13 +17,13 @@ if ($_FILES) {
 		$fileType = (in_array($ext, $imageTypes) ? "image" : "video");
 		$fileDestination = "uploads/posts/$fileName";
 		move_uploaded_file($_FILES['post']['tmp_name'], $fileDestination);
-		record_post($username, $fileName, $fileType);
+		record_post($userId, $fileName, $fileType);
 		die(header("Location: profile.php"));
 	} else $errorMessage = "Unsupported image/video type!";
 } else if (isset($_POST['post'])) {
 	require_once 'includes/functions.php';
 	$post = sanitize($_POST['post']);
-	record_post($username, $post, "text");
+	record_post($userId, $post, "text");
 	die(header("Location: profile.php"));
 }
 ?>

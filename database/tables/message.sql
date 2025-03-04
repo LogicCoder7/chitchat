@@ -1,0 +1,12 @@
+CREATE TABLE message (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    author INT UNSIGNED NOT NULL,
+    recipent INT UNSIGNED NOT NULL,
+    reply_to INT UNSIGNED,
+    message VARCHAR(255) NOT NULL,
+    type ENUM('text', 'image', 'video') NOT NULL,
+    date_messaged DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY(recipent) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY(reply_to) REFERENCES message(id) ON DELETE SET NULL
+);

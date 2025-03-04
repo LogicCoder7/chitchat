@@ -19,17 +19,18 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['form
 			$user = verify_login($username, $password);
 			if ($user) {
 				session_start();
-				$_SESSION['username'] = $user['username'];
+				$_SESSION['user_id'] = $user['id'];
 				$_SESSION['role'] = $user['role'];
 				if ($user['role'] === 'user') die(header('Location: home.php'));
-				else if ($user['role'] === 'moderator') die(header('Location: moderator/'));
+				else if ($user['role'] === 'content moderator') die(header('Location: moderator/'));
 			} else {
 				$errorMessage['request'] = 'Invalid Username/Password combination!';
 			}
 		} else if ($formType == SIGNUP) {
-			if (create_account($username, $password, 'user')) {
+			$userId = create_account($username, $password, 'user');
+			if ($userId) {
 				session_start();
-				$_SESSION['username'] = $username;
+				$_SESSION['user_id'] = $userId;
 				$_SESSION['role'] = 'user';
 				die(header("Location: setup.php"));
 			} else {

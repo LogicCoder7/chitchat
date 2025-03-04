@@ -3,18 +3,18 @@ require_once '../includes/session_start.php';
 require '../includes/request_guard_user.php';
 require_once '../includes/functions.php';
 
-$username = $_SESSION['username'];
+$userId = $_SESSION['user_id'];
 
 if (isset($_GET['action']) && isset($_GET['post_id'])) {
 	$action = $_GET['action'];
 	$postId = sanitize($_GET['post_id']);
-	if ($action === "like") like_post($postId, $username);
-	else if ($action === "unlike") unlike_post($postId, $username);
-	else if ($action === "report") report_post($postId, $username);
-	else if ($action === "unreport") unreport_post($postId, $username);
+	if ($action === "like") like_post($postId, $userId);
+	else if ($action === "unlike") unlike_post($postId, $userId);
+	else if ($action === "report") report_post($postId, $userId);
+	else if ($action === "unreport") unreport_post($postId, $userId);
 }
 
-$posts = get_following_posts($username);
+$posts = get_following_posts($userId);
 
 foreach ($posts as $post) {
 	echo "<section class='post'>";
@@ -35,15 +35,15 @@ foreach ($posts as $post) {
 	echo "</div>";
 
 	echo "<p class='post-info'>"
-		. "<span class='author'>$post[firstname] $post[lastname]</span> | "
+		. "<span class='author'>$post[first_name] $post[last_name]</span> | "
 		. "<span class='likes'>Likes: " . post_like_num($post['id']) . "</span> | "
 		. "<span class='comments'>Comments: " . post_comment_num($post['id']) . "</span> | "
-		. "<span class='date'>" . date("d/M/y g:iA", strtotime($post['date'])) . "</span>"
+		. "<span class='date'>" . date("d/M/y g:iA", strtotime($post['date_posted'])) . "</span>"
 		. "</p>";
 
 
-	$isLiked = post_liked($post['id'], $username);
-	$isReported = post_reported($post['id'], $username);
+	$isLiked = post_liked($post['id'], $userId);
+	$isReported = post_reported($post['id'], $userId);
 
 	echo "<div class='post-action'>"
 		. "<button value='" . ($isLiked ? 'unlike' : 'like') . "' onclick='get(\"/chitchat/api/fetch_fyp.php?post_id=$post[id]&action=\"+this.value, \"postContainer\")'>" . ($isLiked ? 'Unlike' : 'Like') . "</button>"

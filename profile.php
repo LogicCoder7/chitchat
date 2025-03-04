@@ -2,8 +2,8 @@
 require_once 'includes/session_start.php';
 require_once 'includes/navigation_guard_user.php';
 
-$username = $_SESSION['username'];
-$member = (isset($_GET['member']) ? $_GET['member'] : $username);
+$userId = $_SESSION['user_id'];
+$memberId = (isset($_GET['member_id']) ? $_GET['member_id'] : $userId);
 ?>
 
 <!DOCTYPE html>
@@ -26,18 +26,18 @@ $member = (isset($_GET['member']) ? $_GET['member'] : $username);
 
 		<div id="profileContainer" class="profile-container"></div>
 		<script>
-			get("api/fetch_profile.php?member=<?php echo $member; ?>", "profileContainer");
+			get("api/fetch_profile.php?member_id=<?php echo $memberId; ?>", "profileContainer");
 		</script>
 
 		<div class="button-container">
-			<button onclick="get('api/fetch_posts.php?member=<?php echo $member ?>', 'contentContainer')">Posts</button> |
-			<button onclick="get('api/fetch_profile_pics.php?member=<?php echo $member ?>', 'contentContainer')">Profile Pictures</button>
+			<button onclick="get('api/fetch_posts.php?member_id=<?php echo $memberId ?>', 'contentContainer')">Posts</button> |
+			<button onclick="get('api/fetch_profile_pics.php?member_id=<?php echo $memberId ?>', 'contentContainer')">Profile Pictures</button>
 		</div>
 	</header>
 
 	<main id="contentContainer" class="content-container"></main>
 	<script>
-		get("api/fetch_posts.php?member=<?php echo $member; ?>", "contentContainer");
+		get("api/fetch_posts.php?member_id=<?php echo $memberId; ?>", "contentContainer");
 	</script>
 
 	<section id="commentSection" class="comment-section">

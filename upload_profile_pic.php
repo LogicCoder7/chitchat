@@ -2,7 +2,7 @@
 session_start();
 require_once 'includes/navigation_guard_user.php';
 
-$username = $_SESSION['username'];
+$userId = $_SESSION['user_id'];
 $errorMessage = null;
 
 if ($_FILES) {
@@ -15,7 +15,7 @@ if ($_FILES) {
 		$fileName = profile_pic_id();
 		$fileDestination = "uploads/profile_pics/$fileName";
 		move_uploaded_file($_FILES['file']['tmp_name'], $fileDestination);
-		record_profile_pic($username, $fileName);
+		record_profile_pic($userId, $fileName);
 		die(header("Location: profile.php"));
 	} else $errorMessage = "Unsupported image type!";
 }

@@ -1,3 +1,3 @@
 <?php
-if (!isset($_SESSION['username'])) die(header("Location: /chitchat"));
-if ($_SESSION['role'] === 'moderator') die(header('Location: /chitchat/moderator'));
+if (!isset($_SESSION['user_id'])) die(header("Location: /chitchat"));
+if ($_SESSION['role'] === 'content moderator') die(header('Location: /chitchat/moderator'));

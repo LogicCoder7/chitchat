@@ -4,16 +4,16 @@ require '../includes/request_guard_user.php';
 require_once '../includes/functions.php';
 
 if (isset($_POST['post_id'])) {
-	$username = $_SESSION['username'];
+	$userId = $_SESSION['user_id'];
 	$postId = sanitize($_POST['post_id']);
-	$replyToId = (isset($_POST['reply_to_id']) ? sanitize($_POST['reply_to_id']) : null);
+	$replyToId = (isset($_POST['reply_to_id']) && !empty($_POST['reply_to_id']) ? sanitize($_POST['reply_to_id']) : null);
 
 	if (isset($_POST['comment'])) {
 		$comment = sanitize($_POST['comment']);
-		comment_post($postId, $username, $comment, $replyToId);
+		comment_post($postId, $userId, $replyToId, $comment);
 	} else if (isset($_POST['delete_id'])) {
 		$deleteId = sanitize($_POST['delete_id']);
-		delete_post_comment($deleteId, $username);
+		delete_post_comment($deleteId, $userId);
 	}
 
 	$comments = get_post_comments($postId);
@@ -23,12 +23,12 @@ if (isset($_POST['post_id'])) {
 		if ($comment['reply_to']) represent_comment($comment['reply_to']);
 		echo "<p class='comment-content'>$comment[comment]</p>"
 			. "<p class='comment-info'>"
-			. "<span class='author'>$comment[firstname] $comment[lastname]</span> "
-			. "<span class='date'>" . date("d/M/y g:iA", strtotime($comment['date'])) . "</span>"
+			. "<span class='author'>$comment[first_name] $comment[last_name]</span> "
+			. "<span class='date'>" . date("d/M/y g:iA", strtotime($comment['date_commented'])) . "</span>"
 			. "</p>"
 			. "<div class='comment-action'>"
 			. "<button onclick='replyToComment(\"$comment[id]\")'>Reply</button>"
-			. ($username === $comment['username'] ? "<button onclick='post(\"/chitchat/api/fetch_post_comments.php\", \"post_id=$postId&delete_id=$comment[id]\", \"commentContainer\")'>Delete</button>" : "")
+			. ($userId == $comment['author'] ? "<button onclick='post(\"/chitchat/api/fetch_post_comments.php\", \"post_id=$postId&delete_id=$comment[id]\", \"commentContainer\")'>Delete</button>" : "")
 			. "</div></section>";
 	}
 }
@@ -40,6 +40,6 @@ function represent_comment($id)
 
 	echo "<a class='comment-reference' href='#$comment[id]'>"
 		. "<p class='comment-content'>$comment[comment]</p>"
-		. "<p class='comment-info'><span class='author'>$comment[firstname] $comment[lastname]</span></p>"
+		. "<p class='comment-info'><span class='author'>$comment[first_name] $comment[last_name]</span></p>"
 		. "</a>";
 }

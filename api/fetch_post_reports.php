@@ -3,15 +3,15 @@ session_start();
 require '../includes/request_guard_moderator.php';
 require_once '../includes/functions.php';
 
-if (isset($_POST['post_id']) && isset($_POST['post_author']) && isset($_POST['action'])) {
+if (isset($_POST['post_id']) && isset($_POST['author_id']) && isset($_POST['action'])) {
     $postId = sanitize($_POST['post_id']);
-    $postAuthor = sanitize($_POST['post_author']);
+    $authorId = sanitize($_POST['author_id']);
     $action = sanitize($_POST['action']);
 
     if ($action === "ignore") {
         delete_post_reports($postId);
     } else if ($action === "takedown") {
-        delete_post($postId, $postAuthor);
+        delete_post($postId, $authorId);
         delete_post_reports($postId);
     }
 }
@@ -38,7 +38,7 @@ foreach ($reports as $report) {
     echo "</div>";
 
     echo "<p class='post-info'>"
-        . "<span class='author'>$report[post_author]</span> | "
+        . "<span class='author'>$report[post_author_username]</span> | "
         . "<span class='likes'>Likes: " . post_like_num($report['post_id']) . "</span> | "
         . "<span class='comments'>Comments: " . post_comment_num($report['post_id']) . "</span> | "
         . "<span class='date'>" . date("d/M/y g:iA", strtotime($report['post_date'])) . "</span>"
@@ -49,8 +49,8 @@ foreach ($reports as $report) {
         . "</p>";
 
     echo "<div class='report-action'>"
-        . "<button onclick='post(\"/chitchat/api/fetch_post_reports.php\", \"post_id=$report[post_id]&post_author=$report[post_author]&action=ignore\", \"reportContainer\")'>Ignore</button>"
-        . "<button onclick='post(\"/chitchat/api/fetch_post_reports.php\", \"post_id=$report[post_id]&post_author=$report[post_author]&action=takedown\", \"reportContainer\")'>Takedown</button>"
+        . "<button onclick='post(\"/chitchat/api/fetch_post_reports.php\", \"post_id=$report[post_id]&author_id=$report[post_author]&action=ignore\", \"reportContainer\")'>Ignore</button>"
+        . "<button onclick='post(\"/chitchat/api/fetch_post_reports.php\", \"post_id=$report[post_id]&author_id=$report[post_author]&action=takedown\", \"reportContainer\")'>Takedown</button>"
         . "</div>";
 
     echo "</section>";
