@@ -11,11 +11,11 @@ if ($_FILES) {
 	$ext = $file['extension'];
 
 	if (in_array($ext, $imageTypes)) {
-		require_once 'includes/functions.php';
-		$fileName = profile_pic_id();
+		require_once 'includes/database_access.php';
+		$fileName = get_next_profile_pic_id();
 		$fileDestination = "uploads/profile_pics/$fileName";
 		move_uploaded_file($_FILES['file']['tmp_name'], $fileDestination);
-		record_profile_pic($userId, $fileName);
+		add_profile_pic($userId, $fileName);
 		die(header("Location: profile.php"));
 	} else $errorMessage = "Unsupported image type!";
 }
@@ -30,7 +30,7 @@ if ($_FILES) {
 	<title>Upload Profile Picture</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/general.css">
 	<link rel="stylesheet" href="assets/css/upload_profile_pic.css">
 	<script src="assets/js/async_req.js"></script>
 </head>
@@ -49,7 +49,7 @@ if ($_FILES) {
 			<button type="submit">Upload</button>
 		</form>
 	</main>
-	<script src="assets/js/logout.js"></script>
+	<script src="assets/js/confirm_logout.js"></script>
 </body>
 
 </html>

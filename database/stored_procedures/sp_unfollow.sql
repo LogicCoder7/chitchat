@@ -6,7 +6,7 @@ CREATE PROCEDURE sp_unfollow (
     IN p_followee INT UNSIGNED
 )
 BEGIN
-    DELETE FROM follow WHERE follower = p_follower AND followee = p_followee;
+    DELETE FROM following WHERE follower = p_follower AND followee = p_followee;
 END//
 
 DELIMITER ;

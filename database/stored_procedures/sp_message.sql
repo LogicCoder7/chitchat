@@ -5,12 +5,12 @@ CREATE PROCEDURE sp_message (
     IN p_author INT UNSIGNED,
     IN p_recipent INT UNSIGNED,
     IN p_reply_to INT UNSIGNED,
-    IN p_message VARCHAR(255),
-    IN p_type ENUM('text', 'image', 'video')
+    IN p_content VARCHAR(255),
+    IN p_content_type ENUM('TEXT', 'IMAGE', 'VIDEO')
 )
 BEGIN
-    INSERT INTO message(author, recipent, reply_to, message, type) 
-    VALUES(p_author, p_recipent, p_reply_to, p_message, p_type);
+    INSERT INTO message(author, recipent, reply_to, content, content_type) 
+    VALUES(p_author, p_recipent, p_reply_to, p_content, p_content_type);
 END//
 
 DELIMITER ;

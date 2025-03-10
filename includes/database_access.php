@@ -3,7 +3,7 @@
 $mysql_host = "localhost";
 $mysql_username = "root";
 $mysql_password = "";
-$mysql_database = "chitchat_test";
+$mysql_database = "chitchat";
 
 $conn = new mysqli($mysql_host, $mysql_username, $mysql_password, $mysql_database);
 if ($conn->connect_error) die("Couldn't connect to database!");
@@ -21,7 +21,7 @@ function clearResult()
 		$conn->next_result();
 }
 
-function create_account($username, $password, $role)
+function add_user($username, $password, $role)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_add_user(?, ?, ?)");
@@ -31,7 +31,7 @@ function create_account($username, $password, $role)
 	return $result ? $result->fetch_column() : false;
 }
 
-function verify_login($username, $password)
+function get_user($username, $password)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_user(?, ?)");
@@ -41,7 +41,7 @@ function verify_login($username, $password)
 	return $result ? $result->fetch_array(MYSQLI_ASSOC) : null;
 }
 
-function setup_profile($userId, $firstName, $lastName, $bio, $dob)
+function add_profile($userId, $firstName, $lastName, $bio, $dob)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_add_profile(?, ?, ?, ?, ?)");
@@ -59,7 +59,7 @@ function get_profile($userId)
 	return $result ? $result->fetch_array(MYSQLI_ASSOC) : null;
 }
 
-function profile_pic_id()
+function get_next_profile_pic_id()
 {
 	global $conn;
 	$result = $conn->query("CALL sp_get_next_profile_pic_id()");
@@ -68,7 +68,7 @@ function profile_pic_id()
 	return $id ? $id : 1;
 }
 
-function record_profile_pic($userId, $imageName)
+function add_profile_pic($userId, $imageName)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_add_profile_pic(?, ?)");
@@ -86,7 +86,7 @@ function get_profile_pics($userId)
 	return $result ? $result->fetch_all(MYSQLI_ASSOC) : null;
 }
 
-function post_id()
+function get_next_post_id()
 {
 	global $conn;
 	$result = $conn->query("CALL sp_get_next_post_id()");
@@ -95,11 +95,11 @@ function post_id()
 	return $id ? $id : 1;
 }
 
-function record_post($userId, $post, $type)
+function post($userId, $content, $content_type)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_post(?, ?, ?)");
-	$stmt->bind_param("iss", $userId, $post, $type);
+	$stmt->bind_param("iss", $userId, $content, $content_type);
 	$stmt->execute();
 }
 
@@ -113,7 +113,7 @@ function get_posts($userId)
 	return $result ? $result->fetch_all(MYSQLI_ASSOC) : null;
 }
 
-function post_num($userId)
+function get_post_num($userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_post_num(?)");
@@ -123,7 +123,7 @@ function post_num($userId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function get_members()
+function get_users()
 {
 	global $conn;
 	$result = $conn->query("CALL sp_get_users()");
@@ -131,7 +131,7 @@ function get_members()
 	return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function get_following($userId)
+function get_followees($userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_followees(?)");
@@ -155,7 +155,7 @@ function get_followers($userId)
 	return $followers;
 }
 
-function following_num($userId)
+function get_followee_num($userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_followee_num(?)");
@@ -165,7 +165,7 @@ function following_num($userId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function follower_num($userId)
+function get_follower_num($userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_follower_num(?)");
@@ -175,7 +175,7 @@ function follower_num($userId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function follow_member($followerId, $followeeId)
+function follow($followerId, $followeeId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_follow(?, ?)");
@@ -183,7 +183,7 @@ function follow_member($followerId, $followeeId)
 	$stmt->execute();
 }
 
-function unfollow_member($followerId, $followeeId)
+function unfollow($followerId, $followeeId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_unfollow(?, ?)");
@@ -191,7 +191,7 @@ function unfollow_member($followerId, $followeeId)
 	$stmt->execute();
 }
 
-function get_following_posts($userId)
+function get_followee_posts($userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_followee_posts(?)");
@@ -217,7 +217,7 @@ function unlike_profile_pic($profilePicId, $userId)
 	$stmt->execute();
 }
 
-function profile_pic_like_num($profilePicId)
+function get_profile_pic_like_num($profilePicId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_profile_pic_like_num(?)");
@@ -227,7 +227,7 @@ function profile_pic_like_num($profilePicId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function profile_pic_liked($profilePicId, $userId)
+function is_profile_pic_liked($profilePicId, $userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_is_profile_pic_liked(?, ?)");
@@ -253,7 +253,7 @@ function unlike_post($postId, $userId)
 	$stmt->execute();
 }
 
-function post_like_num($postId)
+function get_post_like_num($postId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_post_like_num(?)");
@@ -263,7 +263,7 @@ function post_like_num($postId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function post_liked($postId, $userId)
+function is_post_liked($postId, $userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_is_post_liked(?, ?)");
@@ -273,11 +273,11 @@ function post_liked($postId, $userId)
 	return $result->num_rows === 1;
 }
 
-function comment_profile_pic($profilePicId, $userId, $replyToId, $comment)
+function comment_on_profile_pic($profilePicId, $userId, $replyToId, $content)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_comment_on_profile_pic(?, ?, ?, ?)");
-	$stmt->bind_param("iiis", $profilePicId, $userId, $replyToId, $comment);
+	$stmt->bind_param("iiis", $profilePicId, $userId, $replyToId, $content);
 	$stmt->execute();
 }
 
@@ -309,7 +309,7 @@ function get_profile_pic_comment($commentId)
 	return $result ? $result->fetch_array(MYSQLI_ASSOC) : null;
 }
 
-function profile_pic_comment_num($profilePicId)
+function get_profile_pic_comment_num($profilePicId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_profile_pic_comment_num(?)");
@@ -319,11 +319,11 @@ function profile_pic_comment_num($profilePicId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function comment_post($postId, $userId, $replyToId, $comment)
+function comment_on_post($postId, $userId, $replyToId, $content)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_comment_on_post(?, ?, ?, ?)");
-	$stmt->bind_param("iiis", $postId, $userId, $replyToId, $comment);
+	$stmt->bind_param("iiis", $postId, $userId, $replyToId, $content);
 	$stmt->execute();
 }
 
@@ -355,7 +355,7 @@ function get_post_comment($commentId)
 	return $result ? $result->fetch_array(MYSQLI_ASSOC) : null;
 }
 
-function post_comment_num($postId)
+function get_post_comment_num($postId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_get_post_comment_num(?)");
@@ -365,11 +365,11 @@ function post_comment_num($postId)
 	return $result ? $result->fetch_column() : null;
 }
 
-function message($author, $recipent, $replyToId, $message, $type)
+function message($author, $recipent, $replyToId, $content, $content_type)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_message(?, ?, ?, ?, ?)");
-	$stmt->bind_param("iiiss", $author, $recipent, $replyToId, $message, $type);
+	$stmt->bind_param("iiiss", $author, $recipent, $replyToId, $content, $content_type);
 	$stmt->execute();
 }
 
@@ -403,7 +403,7 @@ function get_messages_involving_user($userId)
 	return $result ? $result->fetch_array(MYSQLI_ASSOC) : null;
 }
 
-function message_id()
+function get_next_message_id()
 {
 	global $conn;
 	$result = $conn->query("CALL sp_get_next_message_id()");
@@ -423,12 +423,12 @@ function report_post($postId, $userId)
 function unreport_post($postId, $userId)
 {
 	global $conn;
-	$stmt = $conn->prepare("CALL sp_delete_post_report(?, ?)");
+	$stmt = $conn->prepare("CALL sp_unreport_post(?, ?)");
 	$stmt->bind_param("ii", $postId, $userId);
 	$stmt->execute();
 }
 
-function post_reported($postId, $userId)
+function is_post_reported($postId, $userId)
 {
 	global $conn;
 	$stmt = $conn->prepare("CALL sp_is_post_reported(?, ?)");
@@ -438,7 +438,7 @@ function post_reported($postId, $userId)
 	return $result->num_rows === 1;
 }
 
-function get_post_reports()
+function get_reported_posts()
 {
 	global $conn;
 	$result = $conn->query("CALL sp_get_reported_posts()");
@@ -490,7 +490,7 @@ function delete_message($messageId, $userId)
 	unlink(__DIR__ . "/../uploads/messages/$fileName");
 }
 
-function delete_account($userId)
+function delete_user($userId)
 {
 	$profilePics = get_profile_pics($userId);
 	foreach ($profilePics as $profilePic)

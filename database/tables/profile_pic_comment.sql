@@ -3,7 +3,7 @@ CREATE TABLE profile_pic_comment (
     profile_pic_id INT UNSIGNED NOT NULL,
     author INT UNSIGNED NOT NULL,
     reply_to INT UNSIGNED,
-    comment VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
     date_commented DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(profile_pic_id) REFERENCES profile_pic(id) ON DELETE CASCADE,
     FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,

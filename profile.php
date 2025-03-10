@@ -1,9 +1,10 @@
 <?php
 require_once 'includes/session_start.php';
 require_once 'includes/navigation_guard_user.php';
+require_once 'includes/database_access.php';
 
 $userId = $_SESSION['user_id'];
-$memberId = (isset($_GET['member_id']) ? $_GET['member_id'] : $userId);
+$memberId = (isset($_GET['user_id']) ? sanitize($_GET['user_id']) : $userId);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $memberId = (isset($_GET['member_id']) ? $_GET['member_id'] : $userId);
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Profile</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/general.css">
 	<link rel="stylesheet" href="assets/css/profile.css">
 	<link rel="stylesheet" href="assets/css/comment.css">
 	<script src="assets/js/async_req.js"></script>
@@ -26,18 +27,18 @@ $memberId = (isset($_GET['member_id']) ? $_GET['member_id'] : $userId);
 
 		<div id="profileContainer" class="profile-container"></div>
 		<script>
-			get("api/fetch_profile.php?member_id=<?php echo $memberId; ?>", "profileContainer");
+			get("api/fetch_profile.php?user_id=<?php echo $memberId; ?>", "profileContainer");
 		</script>
 
 		<div class="button-container">
-			<button onclick="get('api/fetch_posts.php?member_id=<?php echo $memberId ?>', 'contentContainer')">Posts</button> |
-			<button onclick="get('api/fetch_profile_pics.php?member_id=<?php echo $memberId ?>', 'contentContainer')">Profile Pictures</button>
+			<button onclick="get('api/fetch_posts.php?user_id=<?php echo $memberId ?>', 'contentContainer')">Posts</button> |
+			<button onclick="get('api/fetch_profile_pics.php?user_id=<?php echo $memberId ?>', 'contentContainer')">Profile Pictures</button>
 		</div>
 	</header>
 
 	<main id="contentContainer" class="content-container"></main>
 	<script>
-		get("api/fetch_posts.php?member_id=<?php echo $memberId; ?>", "contentContainer");
+		get("api/fetch_posts.php?user_id=<?php echo $memberId; ?>", "contentContainer");
 	</script>
 
 	<section id="commentSection" class="comment-section">
@@ -59,7 +60,7 @@ $memberId = (isset($_GET['member_id']) ? $_GET['member_id'] : $userId);
 		</div>
 	</section>
 	<script src="assets/js/comment.js"></script>
-	<script src="assets/js/logout.js"></script>
+	<script src="assets/js/confirm_logout.js"></script>
 </body>
 
 </html>

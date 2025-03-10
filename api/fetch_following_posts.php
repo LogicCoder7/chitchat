@@ -4,22 +4,19 @@ require '../includes/request_guard_user.php';
 require_once '../includes/database_access.php';
 
 $userId = $_SESSION['user_id'];
-$memberId = (isset($_GET['user_id']) ? sanitize($_GET['user_id']) : $userId);
 
-if (isset($_GET['post_id']) && isset($_GET['action'])) {
-	$postId = sanitize($_GET['post_id']);
+if (isset($_GET['action']) && isset($_GET['post_id'])) {
 	$action = $_GET['action'];
+	$postId = sanitize($_GET['post_id']);
 	if ($action === "like") like_post($postId, $userId);
 	else if ($action === "unlike") unlike_post($postId, $userId);
-	else if ($action === "delete") delete_post($postId, $userId);
 	else if ($action === "report") report_post($postId, $userId);
 	else if ($action === "unreport") unreport_post($postId, $userId);
 }
 
-$posts = get_posts($memberId);
+$posts = get_followee_posts($userId);
 
 foreach ($posts as $post) {
-
 	echo "<section class='post'>";
 	echo "<div class='post-content'>";
 	$contentUrl = $post['content_type'] !== "TEXT" ? "/chitchat/uploads/posts/$post[content]" : null;
@@ -38,22 +35,21 @@ foreach ($posts as $post) {
 	echo "</div>";
 
 	echo "<p class='post-info'>"
+		. "<span class='author'>$post[first_name] $post[last_name]</span> | "
 		. "<span class='likes'>Likes: " . get_post_like_num($post['id']) . "</span> | "
 		. "<span class='comments'>Comments: " . get_post_comment_num($post['id']) . "</span> | "
 		. "<span class='date'>" . date("d/M/y g:iA", strtotime($post['date_posted'])) . "</span>"
 		. "</p>";
 
+
 	$isLiked = is_post_liked($post['id'], $userId);
 	$isReported = is_post_reported($post['id'], $userId);
 
 	echo "<div class='post-action'>"
-		. "<button value='" . ($isLiked ? 'unlike' : 'like') . "' onclick='get(\"/chitchat/api/fetch_posts.php?user_id=$memberId&post_id=$post[id]&action=\"+this.value, \"contentContainer\")'>" . ($isLiked ? 'Unlike' : 'Like') . "</button>"
+		. "<button value='" . ($isLiked ? 'unlike' : 'like') . "' onclick='get(\"/chitchat/api/fetch_following_posts.php?post_id=$post[id]&action=\"+this.value, \"postContainer\")'>" . ($isLiked ? 'Unlike' : 'Like') . "</button>"
 		. "<button onclick='openComment($post[id])'>Comment</button>"
-		. (
-			$userId == $memberId
-			? "<button onclick='get(\"/chitchat/api/fetch_posts.php?user_id=$memberId&post_id=$post[id]&action=delete\", \"contentContainer\")'>Delete</button>"
-			: "<button value='" . ($isReported ? 'unreport' : 'report') . "' onclick='get(\"/chitchat/api/fetch_posts.php?user_id=$memberId&post_id=$post[id]&action=\"+this.value, \"contentContainer\")'>" . ($isReported ? 'Unreport' : 'Report') . "</button>"
-		)
+		. "<button value='" . ($isReported ? 'unreport' : 'report') . "' onclick='get(\"/chitchat/api/fetch_following_posts.php?post_id=$post[id]&action=\"+this.value, \"postContainer\")'>" . ($isReported ? 'Unreport' : 'Report') . "</button>"
 		. "</div>";
+
 	echo "</section>";
 }

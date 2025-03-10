@@ -1,9 +1,9 @@
 <?php
 require_once 'includes/session_start.php';
 require_once 'includes/navigation_guard_user.php';
-require_once 'includes/functions.php';
+require_once 'includes/database_access.php';
 
-$memberId = (isset($_GET['member_id']) ? sanitize($_GET['member_id']) : null);
+$memberId = (isset($_GET['user_id']) ? sanitize($_GET['user_id']) : null);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ $memberId = (isset($_GET['member_id']) ? sanitize($_GET['member_id']) : null);
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Chat</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/general.css">
 	<link rel="stylesheet" href="assets/css/chat.css">
 	<script src="assets/js/async_req.js"></script>
 </head>
@@ -27,10 +27,10 @@ $memberId = (isset($_GET['member_id']) ? sanitize($_GET['member_id']) : null);
 	<main id="messageContainer" class="message-container"></main>
 
 	<script>
-		post("api/fetch_messages.php", "member_id=<?php echo $memberId ?>", "messageContainer")
+		post("api/fetch_messages.php", "user_id=<?php echo $memberId ?>", "messageContainer")
 
 		// setInterval(() => {
-		// 	post("api/fetch_messages.php", "member_id=<?php echo $memberId ?>", "messageContainer")
+		// 	post("api/fetch_messages.php", "user_id=<?php echo $memberId ?>", "messageContainer")
 		// }, 2000);
 	</script>
 
@@ -46,13 +46,13 @@ $memberId = (isset($_GET['member_id']) ? sanitize($_GET['member_id']) : null);
 
 		<form class="message-form" method="post" action="api/fetch_messages.php" enctype="multipart/form-data">
 			<textarea name="message"></textarea>
-			<input type="hidden" name="member_id" value="<?php echo $memberId ?>">
+			<input type="hidden" name="user_id" value="<?php echo $memberId ?>">
 			<input type="hidden" name="reply_to_id">
 			<button type="submit" class="send-btn">Send</button>
 		</form>
 	</section>
 	<script src="assets/js/chat.js"></script>
-	<script src="assets/js/logout.js"></script>
+	<script src="assets/js/confirm_logout.js"></script>
 </body>
 
 </html>

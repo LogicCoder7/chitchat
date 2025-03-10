@@ -12,7 +12,7 @@
     padding: 0 10px 10px 10px;
 }
 
-.report-container {
+.reported-post-container {
     padding: 30px;
 
     display: flex;
@@ -21,7 +21,7 @@
     row-gap: 30px;
 }
 
-.report {
+.reported-post {
     border-radius: 5px;
     box-shadow:
         2px 2px 3px rgba(60, 60, 60, 0.5),
@@ -73,28 +73,28 @@
 
 
 @media screen and (min-width: 841px) {
-    .report {
+    .reported-post {
         width: 500px;
         max-height: 550px;
     }
 }
 
 @media screen and (min-width: 720px) and (max-width: 840px) {
-    .report {
+    .reported-post {
         width: 450px;
         max-height: 500px;
     }
 }
 
 @media screen and (min-width: 500px) and (max-width: 719px) {
-    .report {
+    .reported-post {
         width: 400px;
         max-height: 450px;
     }
 }
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
-    .report {
+    .reported-post {
         width: 300px;
         max-height: 350px;
     }

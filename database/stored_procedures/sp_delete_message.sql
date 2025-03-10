@@ -6,7 +6,7 @@ CREATE PROCEDURE sp_delete_message (
     IN p_author INT UNSIGNED
 )
 BEGIN
-    SELECT message AS file_name FROM message WHERE id = p_id AND author = p_author AND type != "text";
+    SELECT content AS file_name FROM message WHERE id = p_id AND author = p_author AND content_type != "text";
     DELETE FROM message WHERE id = p_id AND author = p_author; 
 END//
 

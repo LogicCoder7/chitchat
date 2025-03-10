@@ -3,10 +3,10 @@ DELIMITER //
 
 CREATE PROCEDURE sp_get_reported_posts ()
 BEGIN
-    SELECT U.id AS post_author, U.username AS post_author_username, P.id AS post_id, P.post, P.type AS post_type,
-            P.date_posted AS post_date, COUNT(*) AS report_num
-    FROM user U
-    JOIN post P ON P.author = U.id
+    SELECT P.id, P.author, P.content, P.content_type, P.date_posted, U.username AS author_username,
+           COUNT(*) AS report_num
+    FROM post P
+    JOIN user U ON U.id = P.author
     JOIN post_report R ON R.post_id = P.id
     GROUP BY R.post_id 
     ORDER BY report_num DESC;

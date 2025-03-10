@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS sp_delete_post_report;
+DROP PROCEDURE IF EXISTS sp_unreport_post;
 DELIMITER //
 
-CREATE PROCEDURE sp_delete_post_report (
+CREATE PROCEDURE sp_unreport_post (
     IN p_post_id INT UNSIGNED,
     IN p_reporter INT UNSIGNED
 )

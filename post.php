@@ -12,18 +12,18 @@ if ($_FILES) {
 	$ext = $file['extension'];
 
 	if (in_array($ext, $imageTypes) || in_array($ext, $videoTypes)) {
-		require_once 'includes/functions.php';
-		$fileName = post_id();
-		$fileType = (in_array($ext, $imageTypes) ? "image" : "video");
+		require_once 'includes/database_access.php';
+		$fileName = get_next_post_id();
+		$fileType = (in_array($ext, $imageTypes) ? "IMAGE" : "VIDEO");
 		$fileDestination = "uploads/posts/$fileName";
 		move_uploaded_file($_FILES['post']['tmp_name'], $fileDestination);
-		record_post($userId, $fileName, $fileType);
+		post($userId, $fileName, $fileType);
 		die(header("Location: profile.php"));
 	} else $errorMessage = "Unsupported image/video type!";
 } else if (isset($_POST['post'])) {
-	require_once 'includes/functions.php';
+	require_once 'includes/database_access.php';
 	$post = sanitize($_POST['post']);
-	record_post($userId, $post, "text");
+	post($userId, $post, "TEXT");
 	die(header("Location: profile.php"));
 }
 ?>
@@ -37,7 +37,7 @@ if ($_FILES) {
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Post</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/general.css">
 	<link rel="stylesheet" href="assets/css/post.css">
 	<script src="assets/js/async_req.js"></script>
 </head>
@@ -57,8 +57,8 @@ if ($_FILES) {
 			<button type='submit'>Post</button>
 		</form>
 	</main>
-	<script src="assets/js/post.js"></script>
-	<script src="assets/js/logout.js"></script>
+	<script src="assets/js/toggle_post_content.js"></script>
+	<script src="assets/js/confirm_logout.js"></script>
 </body>
 
 </html>

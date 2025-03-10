@@ -7,13 +7,13 @@ $errorMessage = array('firstname' => null, 'lastname' => null, 'dob' => null);
 $firstname = $lastname = $bio = $dob = null;
 
 if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
-	require_once 'includes/functions.php';
+	require_once 'includes/database_access.php';
 	$firstname = sanitize($_POST['firstname']);
 	$lastname = sanitize($_POST['lastname']);
 	$bio = sanitize($_POST['bio']);
 	$dob = sanitize($_POST['dob']);
 
-	require_once 'includes/validations.php';
+	require_once 'includes/validation.php';
 	$firstname = fix_name($firstname);
 	$lastname = fix_name($lastname);
 	$errorMessage['firstname'] = validate_name($firstname);
@@ -21,7 +21,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 	$errorMessage['dob'] = validate_birthdate($dob);
 
 	if (!$errorMessage['firstname'] && !$errorMessage['lastname'] && !$errorMessage['dob']) {
-		setup_profile($userId, $firstname, $lastname, $bio, $dob);
+		add_profile($userId, $firstname, $lastname, $bio, $dob);
 		die(header("Location: profile.php"));
 	}
 }
@@ -33,10 +33,10 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Setup</title>
+	<title>Setup Profile</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
-	<link rel="stylesheet" href="assets/css/setup.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/general.css">
+	<link rel="stylesheet" href="assets/css/profile_setup.css">
 </head>
 
 <body>
@@ -46,7 +46,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname'])) {
 
 	<main class="form-container">
 		<h2 class="form-heading">Profile Setup</h2>
-		<form class="profile-setup-form" method="post" action="setup.php">
+		<form class="profile-setup-form" method="post" action="profile_setup.php">
 			<label for="firstname">First name</label>
 			<input type="text" id="firstname" class="text-field" name="firstname" value="<?php echo $firstname ?>" required autofocus>
 			<p class="error"><?php echo $errorMessage['firstname'] ?></p>

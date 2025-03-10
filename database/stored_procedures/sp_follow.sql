@@ -6,7 +6,7 @@ CREATE PROCEDURE sp_follow (
     IN p_followee INT UNSIGNED
 )
 BEGIN
-    INSERT INTO follow(follower, followee) VALUES(p_follower, p_followee);
+    INSERT INTO following(follower, followee) VALUES(p_follower, p_followee);
 END//
 
 DELIMITER ;

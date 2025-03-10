@@ -12,8 +12,8 @@ require_once 'includes/navigation_guard_user.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<link rel="stylesheet" href="assets/css/home.css">
+	<link rel="stylesheet" href="assets/css/general.css">
+	<link rel="stylesheet" href="assets/css/following_posts.css">
 	<link rel="stylesheet" href="assets/css/comment.css">
 	<script src="assets/js/async_req.js"></script>
 </head>
@@ -25,7 +25,7 @@ require_once 'includes/navigation_guard_user.php';
 
 	<main id="postContainer" class="post-container"></main>
 	<script>
-		get("api/fetch_fyp.php", "postContainer");
+		get("api/fetch_following_posts.php", "postContainer");
 	</script>
 
 	<section id="commentSection" class="comment-section">
@@ -48,7 +48,7 @@ require_once 'includes/navigation_guard_user.php';
 	</section>
 
 	<script src="assets/js/comment.js"></script>
-	<script src="assets/js/logout.js"></script>
+	<script src="assets/js/confirm_logout.js"></script>
 </body>
 
 </html>

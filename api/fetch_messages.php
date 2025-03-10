@@ -3,11 +3,11 @@ require_once '../includes/session_start.php';
 require '../includes/request_guard_user.php';
 $userId = $_SESSION['user_id'];
 
-if (isset($_POST['member_id'])) {
+if (isset($_POST['user_id'])) {
 
-	require_once '../includes/functions.php';
+	require_once '../includes/database_access.php';
 	$errorMessage = null;
-	$memberId = sanitize($_POST['member_id']);
+	$memberId = sanitize($_POST['user_id']);
 	$replyToId = (isset($_POST['reply_to_id']) && !empty($_POST['reply_to_id']) ? sanitize($_POST['reply_to_id']) : null);
 
 	if ($_FILES) {
@@ -17,8 +17,8 @@ if (isset($_POST['member_id'])) {
 		$ext = $file['extension'];
 
 		if (in_array($ext, $imageTypes) || in_array($ext, $videoTypes)) {
-			$fileName = message_id();
-			$fileType = (in_array($ext, $imageTypes) ? "image" : "video");
+			$fileName = get_next_message_id();
+			$fileType = (in_array($ext, $imageTypes) ? "IMAGE" : "VIDEO");
 			$fileDestination = "../uploads/messages/$fileName";
 			move_uploaded_file($_FILES['message']['tmp_name'], $fileDestination);
 			message($userId, $memberId, $replyToId, $fileName, $fileType);
@@ -39,17 +39,17 @@ if (isset($_POST['member_id'])) {
 		if ($message['reply_to']) represent_message($message['reply_to']);
 
 		echo "<div class='message-content'>";
-		$messageUrl = "/chitchat/uploads/messages/$message[message]";
+		$messageUrl = $message['content_type'] != "TEXT" ? "/chitchat/uploads/messages/$message[content]" : null;
 
-		switch ($message['type']) {
-			case "image":
+		switch ($message['content_type']) {
+			case "IMAGE":
 				echo "<a href='$messageUrl' target='_blank'><img src='$messageUrl'></a>";
 				break;
-			case "video":
+			case "VIDEO":
 				echo "<video src='$messageUrl' controls>";
 				break;
-			case "text":
-				echo "<p>$message[message]</p>";
+			case "TEXT":
+				echo "<p>$message[content]</p>";
 				break;
 		}
 		echo "</div>";
@@ -61,7 +61,7 @@ if (isset($_POST['member_id'])) {
 
 		echo  "<div class='message-action'>"
 			. "<button onclick='replyToMessage(\"$message[id]\")'>Reply</button>"
-			. ($userId == $message['author'] ? "<button onclick='post(\"/chitchat/api/fetch_messages.php\", \"member_id=$memberId&delete_id=$message[id]\", \"messageContainer\")'>Delete</button>" : "")
+			. ($userId == $message['author'] ? "<button onclick='post(\"/chitchat/api/fetch_messages.php\", \"user_id=$memberId&delete_id=$message[id]\", \"messageContainer\")'>Delete</button>" : "")
 			. "</div>";
 
 		echo "</section>";
@@ -76,16 +76,16 @@ function represent_message($messageId)
 	echo "<a class='message-reference' href='#$message[id]' >";
 
 	echo "<div class='message-content'>";
-	$messageUrl = "/chitchat/uploads/messages/$message[message]";
-	switch ($message['type']) {
-		case "image":
+	$messageUrl = $message['content_type'] !== "TEXT" ? "/chitchat/uploads/messages/$message[content]" : null;
+	switch ($message['content_type']) {
+		case "IMAGE":
 			echo "<img src='$messageUrl'>";
 			break;
-		case "video":
+		case "VIDEO":
 			echo "<video src='$messageUrl'>";
 			break;
-		case "text":
-			echo "<p>$message[message]</p>";
+		case "TEXT":
+			echo "<p>$message[content]</p>";
 			break;
 	}
 	echo "</div>";

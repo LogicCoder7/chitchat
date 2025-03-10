@@ -7,7 +7,7 @@
 	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
-.member-container {
+.user-container {
 	padding: 10px;
 
 	display: flex;
@@ -15,7 +15,7 @@
 	row-gap: 10px;
 }
 
-.member {
+.user {
 	background-color: lightgray;
 	padding: 2px 8px;
 	border-radius: 5px;
@@ -24,16 +24,16 @@
 	column-gap: 5px;
 }
 
-.member-preview {
+.user-preview {
 	flex: 1;
 }
 
-.member-action {
+.user-action {
 	display: flex;
 	align-items: center;
 }
 
-.member-link {
+.user-link {
 	height: 100%;
 	display: inline-grid;
 	grid-template-columns: auto auto;
@@ -41,7 +41,7 @@
 	column-gap: 5px;
 }
 
-.member-link:any-link {
+.user-link:any-link {
 	color: black;
 	text-decoration: none;
 }

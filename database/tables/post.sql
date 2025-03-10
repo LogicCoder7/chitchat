@@ -1,8 +1,8 @@
 CREATE TABLE post (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     author INT UNSIGNED NOT NULL,
-    post VARCHAR(255) NOT NULL,
-    type ENUM('text', 'image', 'video') NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    content_type ENUM('TEXT', 'IMAGE', 'VIDEO') NOT NULL,
     date_posted DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE
 );

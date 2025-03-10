@@ -5,34 +5,34 @@ $errorMessage = array('request' => null, 'username' => null, 'password' => null)
 $username = $password = null;
 
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['form_type'])) {
-	require_once 'includes/functions.php';
+	require_once 'includes/database_access.php';
 	$username = strtolower(sanitize($_POST['username']));
 	$password = sanitize($_POST['password']);
 	$formType = sanitize($_POST['form_type']);
 
-	require_once 'includes/validations.php';
+	require_once 'includes/validation.php';
 	$errorMessage['username'] = validate_username($username);
 	$errorMessage['password'] = validate_password($password);
 
 	if (!$errorMessage['username'] && !$errorMessage['password']) {
 		if ($formType == LOGIN) {
-			$user = verify_login($username, $password);
+			$user = get_user($username, $password);
 			if ($user) {
 				session_start();
 				$_SESSION['user_id'] = $user['id'];
 				$_SESSION['role'] = $user['role'];
-				if ($user['role'] === 'user') die(header('Location: home.php'));
-				else if ($user['role'] === 'content moderator') die(header('Location: moderator/'));
+				if ($user['role'] === 'USER') die(header('Location: following_posts.php'));
+				else if ($user['role'] === 'CONTENT_MODERATOR') die(header('Location: moderator/'));
 			} else {
-				$errorMessage['request'] = 'Invalid Username/Password combination!';
+				$errorMessage['request'] = 'Invalid username/password combination!';
 			}
 		} else if ($formType == SIGNUP) {
-			$userId = create_account($username, $password, 'user');
+			$userId = add_user($username, $password, 'USER');
 			if ($userId) {
 				session_start();
 				$_SESSION['user_id'] = $userId;
-				$_SESSION['role'] = 'user';
-				die(header("Location: setup.php"));
+				$_SESSION['role'] = 'USER';
+				die(header("Location: profile_setup.php"));
 			} else {
 				$errorMessage['request'] = "The username you entered is already taken!";
 			}
@@ -49,7 +49,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['form
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chitchat</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/general.css">
 	<link rel="stylesheet" href="assets/css/index.css">
 </head>
 
@@ -77,7 +77,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['form
 			<button type="button" id="toggleFormBtn" class="toggle-form-btn"></button>
 		</form>
 	</main>
-	<script src="assets/js/login_signup_form.js"></script>
+	<script src="assets/js/toggle_login_signup_form.js"></script>
 </body>
 
 </html>

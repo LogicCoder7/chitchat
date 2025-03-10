@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS following;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS post_comment;
 DROP TABLE IF EXISTS post_like;
@@ -20,4 +20,4 @@ source database/tables/post_report.sql;
 source database/tables/post_like.sql;
 source database/tables/post_comment.sql;
 source database/tables/message.sql;
-source database/tables/follow.sql;
+source database/tables/following.sql;

@@ -1,10 +1,10 @@
 <?php
 require_once '../includes/session_start.php';
 require '../includes/request_guard_user.php';
-require_once '../includes/functions.php';
+require_once '../includes/database_access.php';
 
 $userId = $_SESSION['user_id'];
-$member_id = (isset($_GET['member_id']) ? sanitize($_GET['member_id']) : $userId);
+$memberId = (isset($_GET['user_id']) ? sanitize($_GET['user_id']) : $userId);
 
 if (isset($_GET['profile_pic_id']) && isset($_GET['action'])) {
 	$profilePicId = sanitize($_GET['profile_pic_id']);
@@ -14,27 +14,28 @@ if (isset($_GET['profile_pic_id']) && isset($_GET['action'])) {
 	else if ($action === "delete") delete_profile_pic($profilePicId, $userId);
 }
 
-$profilePics = get_profile_pics($member_id);
+$profilePics = get_profile_pics($memberId);
 
 foreach ($profilePics as $profilePic) {
-	echo "<section class='post'>";
+	echo "<section class='profile-pic'>";
 
-	echo "<div class='post-content'>"
-		. "<a href='/chitchat/uploads/profile_pics/$profilePic[image_name]' target='_blank'><image src='/chitchat/uploads/profile_pics/$profilePic[image_name]'></a>"
+	echo "<div>";
+	$profilePicUrl = "/chitchat/uploads/profile_pics/$profilePic[image_name]";
+	echo "<a href='$profilePicUrl' target='_blank'><image class='profile-pic-image' src='$profilePicUrl'></a>"
 		. "</div>";
 
-	echo "<p class='post-info'>"
-		. "<span class='likes'>Likes: " . profile_pic_like_num($profilePic['id']) . "</span> | "
-		. "<span class='comments'>Comments: " . profile_pic_comment_num($profilePic['id']) . "</span> | "
+	echo "<p class='profile-pic-info'>"
+		. "<span class='likes'>Likes: " . get_profile_pic_like_num($profilePic['id']) . "</span> | "
+		. "<span class='comments'>Comments: " . get_profile_pic_comment_num($profilePic['id']) . "</span> | "
 		. "<span class='date'>" . date("d/M/y g:iA", strtotime($profilePic['date_uploaded'])) . "</span>"
 		. "</p>";
 
-	$isLiked = profile_pic_liked($profilePic['id'], $userId);
+	$isLiked = is_profile_pic_liked($profilePic['id'], $userId);
 
-	echo "<div class='post-action'>"
-		. "<button value='" . ($isLiked ? "unlike" : "like") . "' onclick='get(\"/chitchat/api/fetch_profile_pics.php?member_id=$member_id&profile_pic_id=$profilePic[id]&action=\"+this.value, \"contentContainer\")'>" . ($isLiked ? "Unlike" : "Like") . "</button>"
+	echo "<div class='profile-pic-action'>"
+		. "<button value='" . ($isLiked ? "unlike" : "like") . "' onclick='get(\"/chitchat/api/fetch_profile_pics.php?user_id=$memberId&profile_pic_id=$profilePic[id]&action=\"+this.value, \"contentContainer\")'>" . ($isLiked ? "Unlike" : "Like") . "</button>"
 		. "<button onclick='openComment($profilePic[id], false)'>Comment</button>"
-		. ($userId == $member_id ? "<button onclick='get(\"/chitchat/api/fetch_profile_pics.php?member_id=$member_id&profile_pic_id=$profilePic[id]&action=delete\", \"contentContainer\")'>Delete</button>" : "")
+		. ($userId == $memberId ? "<button onclick='get(\"/chitchat/api/fetch_profile_pics.php?user_id=$memberId&profile_pic_id=$profilePic[id]&action=delete\", \"contentContainer\")'>Delete</button>" : "")
 		. "</div>";
 
 	echo "</section>";

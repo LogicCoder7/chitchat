@@ -3,7 +3,7 @@ DELIMITER //
 
 CREATE PROCEDURE sp_get_next_message_id ()
 BEGIN
-    SELECT id + 1 FROM message WHERE type!='text' ORDER BY id DESC LIMIT 1;
+    SELECT id + 1 FROM message WHERE content_type != 'text' ORDER BY id DESC LIMIT 1;
 END//
 
 DELIMITER ;
